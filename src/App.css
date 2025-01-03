@@ -1,38 +1,186 @@
-.App {
-  text-align: center;
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Menu Navigation */
+nav {
+  background-color: #004085;
+  padding: 10px 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+nav ul {
+  list-style-type: none;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin: 0;
+}
+
+nav li {
+  margin: 0 20px;
+}
+
+nav a {
   color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
-.App-link {
-  color: #61dafb;
+nav a:hover {
+  color: #f4a261;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Dropdown Styling */
+nav ul ul {
+  display: none;
+  position: absolute;
+  background-color: #0056b3;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+nav li:hover > ul {
+  display: block;
+}
+
+nav ul ul li {
+  margin: 0;
+}
+
+/* Main Content */
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #004085;
+}
+
+.container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styles */
+button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Form Fields */
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+input:focus, textarea:focus {
+  border-color: #004085;
+  outline: none;
+}
+
+/* Success and Error Messages */
+.success {
+  color: #28a745;
+}
+
+.error {
+  color: #dc3545;
+}
+/* Autres styles dans App.css */
+
+/* Style pour le menu principal */
+nav {
+  background-color: #34495E; /* Un fond bleu-gris */
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+/* Liste principale du menu */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style pour chaque élément de menu */
+li {
+  margin: 10px 0;
+}
+
+/* Liens principaux du menu */
+a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+  display: block;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+/* Effet au survol du lien principal */
+a:hover {
+  background-color: #1abc9c;
+  padding-left: 15px;
+}
+
+/* Effet au clic du lien principal */
+a:active {
+  background-color: #16a085;
+}
+
+/* Style pour le sous-menu (ul imbriqué) */
+ul > li > ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+/* Liens du sous-menu */
+ul > li > ul > li > a {
+  color: #BDC3C7; /* Couleur de texte pour le sous-menu */
+  font-size: 16px;
+  padding: 8px;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+/* Effet au survol des éléments du sous-menu */
+ul > li > ul > li > a:hover {
+  background-color: #34495E;
+  color: white;
+  padding-left: 15px;
+}
+
+/* Effet au clic du sous-menu */
+ul > li > ul > li > a:active {
+  background-color: #16a085;
+  color: white;
 }
