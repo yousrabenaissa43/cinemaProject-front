@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { add, getAll, remove } from '../services/operationsDepart'
+//import { add, getAll, remove } from '../services/operationsDepart'
 import FormAjout from './FormAjout'
 class  ListDeparts extends Component {
     state = {

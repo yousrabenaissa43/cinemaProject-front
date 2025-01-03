@@ -5,7 +5,7 @@ import Apropos from "./components/Apropos";
 import ListDeparts from "./components/ListDeparts";
 import Presentation from "./components/presentation";
 import Presentation2 from "./components/presentation2";
-import Menu from "./navigation/menu";
+//import Menu from "./navigation/menu";
 import './App.css'; 
 
 function App() {
