@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate  } from "react-router-dom";  // Assuming you are using react-router for navigation
+import { useNavigate } from "react-router-dom";  // Assuming you are using react-router for navigation
 
 const GetAllSeance = () => {
     const [seances, setSeances] = useState([]);
@@ -46,7 +46,7 @@ const GetAllSeance = () => {
                         <th style={styles.th}>ID</th>
                         <th style={styles.th}>Schedule</th>
                         <th style={styles.th}>Tarif</th>
-                        <th style={styles.th}>availableSeats</th>
+                        <th style={styles.th}>Available Seats</th>
                         <th style={styles.th}>Places</th>
                         <th style={styles.th}>SalleProg ID</th>
                         <th style={styles.th}>Actions</th>
@@ -89,16 +89,20 @@ const styles = {
     table: {
         width: '100%',
         borderCollapse: 'collapse',
+        borderRadius: '8px',  // Rounded borders for the table
+        overflow: 'hidden',   // Ensures that the borders are rounded correctly
     },
     th: {
-        backgroundColor: '#007bff',
+        backgroundColor: '#FFB6C1',  
         color: '#fff',
-        padding: '10px',
-        border: '1px solid black',
+        padding: '12px',
+        border: '1px solid #ddd',
+        textAlign: 'center',
     },
     td: {
-        padding: '10px',
-        border: '1px solid black',
+        padding: '12px',
+        border: '1px solid #ddd',
+        textAlign: 'center',
     },
     button: {
         padding: '5px 10px',
@@ -108,10 +112,15 @@ const styles = {
         borderRadius: '4px',
         cursor: 'pointer',
         marginRight: '5px',
+        transition: 'background-color 0.3s ease',
+    },
+    buttonHover: {
+        backgroundColor: '#0056b3',
     },
     error: {
         color: 'red',
         marginTop: '10px',
+        textAlign: 'center',
     },
 };
 

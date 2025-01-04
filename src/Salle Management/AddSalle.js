@@ -10,7 +10,9 @@ const AddSalle = () => {
 
     const handleAdd = async () => {
         try {
-            const response = await axios.post(`http://localhost:8080/cinemaProject/api/cinema/salle/add?name=${name}&address=${address}&capacite=${capacite}`);
+            const response = await axios.post(
+                `http://localhost:8080/cinemaProject/api/cinema/salle/add?name=${name}&address=${address}&capacite=${capacite}`
+            );
             setSuccessMessage('Salle added successfully!');
             setError('');
         } catch (err) {
@@ -22,30 +24,36 @@ const AddSalle = () => {
     return (
         <div style={styles.container}>
             <h2 style={styles.header}>Add Salle</h2>
-            <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Salle Name"
-                style={styles.input}
-            />
-            <input
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Salle Address"
-                style={styles.input}
-            />
-            <input
-                type="number"
-                value={capacite}
-                onChange={(e) => setCapacite(e.target.value)}
-                placeholder="Salle Capacity"
-                style={styles.input}
-            />
+            <div style={styles.formGroup}>
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Salle Name"
+                    style={styles.input}
+                />
+            </div>
+            <div style={styles.formGroup}>
+                <input
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Salle Address"
+                    style={styles.input}
+                />
+            </div>
+            <div style={styles.formGroup}>
+                <input
+                    type="number"
+                    value={capacite}
+                    onChange={(e) => setCapacite(e.target.value)}
+                    placeholder="Salle Capacity"
+                    style={styles.input}
+                />
+            </div>
             <button onClick={handleAdd} style={styles.button}>Add</button>
-            {successMessage && <p className="success" style={styles.success}>{successMessage}</p>}
-            {error && <p className="error" style={styles.error}>{error}</p>}
+            {successMessage && <p style={styles.success}>{successMessage}</p>}
+            {error && <p style={styles.error}>{error}</p>}
         </div>
     );
 };
@@ -56,36 +64,51 @@ const styles = {
         flexDirection: 'column',
         alignItems: 'center',
         padding: '20px',
-        backgroundColor: '#f9f9f9',
-        borderRadius: '8px',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#f4f4f9',
+        borderRadius: '15px', // Border radius for smooth edges
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        maxWidth: '500px',
+        margin: '40px auto',
     },
     header: {
+        textAlign: 'center',
         marginBottom: '20px',
+        color: '#333',
+        fontSize: '24px',
+    },
+    formGroup: {
+        marginBottom: '15px',
+        width: '100%',
     },
     input: {
-        marginBottom: '10px',
-        padding: '10px',
         width: '100%',
-        maxWidth: '400px',
-        borderRadius: '4px',
-        border: '1px solid #ccc',
+        padding: '10px',
+        borderRadius: '8px',
+        border: '1px solid #ddd',
+        fontSize: '14px',
     },
     button: {
-        padding: '10px 20px',
-        backgroundColor: '#28a745',
-        color: 'white',
+        backgroundColor: '#87ceeb', // Sky blue (beau ciel)
+        color: '#fff',
+        padding: '12px 20px',
         border: 'none',
-        borderRadius: '4px',
+        borderRadius: '8px',
         cursor: 'pointer',
+        fontSize: '16px',
+        width: '100%',
+        transition: 'background-color 0.3s ease',
     },
     success: {
-        color: 'green',
-        marginTop: '10px',
+        color: '#5cb85c',
+        textAlign: 'center',
+        fontSize: '14px',
+        marginTop: '15px',
     },
     error: {
-        color: 'red',
-        marginTop: '10px',
+        color: '#d9534f',
+        textAlign: 'center',
+        fontSize: '14px',
+        marginTop: '15px',
     },
 };
 

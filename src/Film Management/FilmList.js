@@ -18,27 +18,24 @@ const FilmList = () => {
     }, []);
 
     return (
-
-
         <div style={styles.container}>
-        <h2 style={styles.header}>Film List </h2>
-        {error && <p className="error">{error}</p>}
-        <table style={styles.table}>
+            <h2 style={styles.header}>Film List</h2>
+            {error && <p style={styles.error}>{error}</p>}
 
-        
-                <thead>
+            <table style={styles.table}>
+                <thead style={styles.thead}>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
+                        <th style={styles.th}>ID</th>
+                        <th style={styles.th}>Name</th>
+                        <th style={styles.th}>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     {films.map((film) => (
-                        <tr key={film.id}>
-                            <td>{film.id}</td>
-                            <td>{film.name}</td>
-                            <td>{film.description}</td>
+                        <tr key={film.id} style={styles.row}>
+                            <td style={styles.td}>{film.id}</td>
+                            <td style={styles.td}>{film.name}</td>
+                            <td style={styles.td}>{film.description}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -46,34 +43,56 @@ const FilmList = () => {
         </div>
     );
 };
+
 const styles = {
     container: {
+        maxWidth: '800px',
+        margin: '40px auto',
         padding: '20px',
-        backgroundColor: '#f9f9f9',
-        borderRadius: '8px',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#f4f4f9',
+        borderRadius: '20px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        fontFamily: 'Arial, sans-serif',
     },
     header: {
-        marginBottom: '20px',
         textAlign: 'center',
+        color: '#333',
+        marginBottom: '20px',
+        fontSize: '24px',
     },
     table: {
         width: '100%',
         borderCollapse: 'collapse',
+        marginTop: '20px',
+    },
+    thead: {
+        backgroundColor: '#FFB6C1',
     },
     th: {
-        backgroundColor: '#007bff',
+        padding: '12px',
+        textAlign: 'left',
         color: '#fff',
-        padding: '10px',
-        border: '1px solid #ddd',
+        fontWeight: 'bold',
+        borderBottom: '2px solid #ddd',
     },
     td: {
         padding: '10px',
-        border: '1px solid #ddd',
+        textAlign: 'left',
+        borderBottom: '1px solid #ddd',
+        color: '#333',
+        backgroundColor: '#fff',
+    },
+    row: {
+        transition: 'background-color 0.3s ease',
+    },
+    rowHover: {
+        backgroundColor: '#f1f1f1',
     },
     error: {
-        color: 'red',
-        marginBottom: '10px',
+        color: '#d9534f',
+        textAlign: 'center',
+        marginBottom: '20px',
+        fontSize: '14px',
     },
 };
 

@@ -8,86 +8,70 @@ const CreateUser = () => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handleCreateUser = async () => {
-    try {
-        const response = await axios.post(`http://localhost:8080/cinemaProject/api/utilisateur/create?username=${username}&password=${password}`);
-        if (response.status === 201) {
-            setMessage(response.data);  
-        }
-    } catch (error) {
-        if (error.response) {
-            setMessage(error.response.data); 
-        } else {
-            setMessage("An unexpected error occurred");
-        }
+    if (!username || !password) {
+      setMessage("Username and Password are required.");
+      setIsSuccess(false);
+      return;
     }
-};
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/cinemaProject/api/utilisateur/create`,
+        null,
+        {
+          params: { username, password },
+        }
+      );
+      if (response.status === 201) {
+        setMessage("User created successfully!");
+        setIsSuccess(true);
+        setUsername("");
+        setPassword("");
+      }
+    } catch (error) {
+      setIsSuccess(false);
+      if (error.response && error.response.data) {
+        setMessage(error.response.data);
+      } else {
+        setMessage("An unexpected error occurred. Please try again.");
+      }
+    }
+  };
 
   return (
-    <div
-      style={{
-        width: "300px",
-        margin: "0 auto",
-        padding: "20px",
-        border: "1px solid #ccc",
-        borderRadius: "8px",
-      }}
-    >
+    <div className="create-user-container">
       <h2>Create User</h2>
       <div>
-        <div style={{ marginBottom: "10px" }}>
-          <label
-            htmlFor="username"
-            style={{ display: "block", marginBottom: "5px" }}
-          >
-            Username
-          </label>
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
           <input
             id="username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            style={{ width: "100%", padding: "8px", boxSizing: "border-box" }}
             required
           />
         </div>
-        <div style={{ marginBottom: "15px" }}>
-          <label
-            htmlFor="password"
-            style={{ display: "block", marginBottom: "5px" }}
-          >
-            Password
-          </label>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{ width: "100%", padding: "10px", boxSizing: "border-box" }}
             required
           />
         </div>
         <button
-         onClick={handleCreateUser}
-          style={{
-            width: "100%",
-            padding: "10px",
-            backgroundColor: "#28a7a5",
-            color: "black;",
-            border: "none",
-            borderRadius: "10px",
-            cursor: "pointer",
-          }}
+          onClick={handleCreateUser}
+          disabled={!username || !password}
+          className="create-user-btn"
         >
           Create User
         </button>
       </div>
       {message && (
-        <p
-          style={{
-            marginTop: "10px",
-            color: isSuccess ? "green" : "red",
-          }}
-        >
+        <p className={`message ${isSuccess ? "success" : "error"}`} aria-live="polite">
           {message}
         </p>
       )}

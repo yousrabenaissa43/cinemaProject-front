@@ -48,39 +48,98 @@ const ReserveSeat = () => {
   };
 
   return (
-    <div className="form-container">
-    <h2>Reserve a Seat</h2>
+    <div style={styles.container}>
+      <h2 style={styles.header}>Reserve a Seat</h2>
 
-    {/* Dropdown list for selecting a seance */}
-    <div className="form-group">
-        <label htmlFor="seanceSelect">Select a Seance:</label>
+      {/* Dropdown list for selecting a seance */}
+      <div style={styles.formGroup}>
+        <label htmlFor="seanceSelect" style={styles.label}>Select a Seance:</label>
         <select
-            id="seanceSelect"
-            value={selectedSeance}
-            onChange={(e) => setSelectedSeance(e.target.value)}
-            className="form-control" // Utilise la classe CSS partagée
+          id="seanceSelect"
+          value={selectedSeance}
+          onChange={(e) => setSelectedSeance(e.target.value)}
+          style={styles.select}
         >
-            <option value="" disabled>
-                Select a Seance
+          <option value="" disabled>
+            Select a Seance
+          </option>
+          {seances.map((seance) => (
+            <option key={seance.id_seance} value={seance.id_seance}>
+              {`Seance ID: ${seance.id_seance}, Film: ${seance.salleProg?.film?.name || 'Unknown'}, Horaire: ${seance.horaire}`}
             </option>
-            {seances.map((seance) => (
-                <option key={seance.id_seance} value={seance.id_seance}>
-                    {`Seance ID: ${seance.id_seance}, Film: ${seance.salleProg?.film?.name || 'Unknown'}, Horaire: ${seance.horaire}`}
-                </option>
-            ))}
+          ))}
         </select>
-    </div>
+      </div>
 
-    {/* Submit button */}
-    <button onClick={handleSubmit} >
+      {/* Submit button */}
+      <button onClick={handleSubmit} style={styles.button}>
         Reserve Seat
-    </button>
+      </button>
 
-
-      {successMessage && <p>{successMessage}</p>}
-      {errorMessage && <p>{errorMessage}</p>}
+      {successMessage && <p style={styles.successMessage}>{successMessage}</p>}
+      {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
     </div>
   );
+};
+
+const styles = {
+  container: {
+    padding: '20px',
+    backgroundColor: '#f9f9f9',
+    borderRadius: '8px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    width: '300px',
+    margin: 'auto',
+    textAlign: 'center',
+  },
+  header: {
+    marginBottom: '20px',
+    fontSize: '24px',
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  formGroup: {
+    marginBottom: '15px',
+    textAlign: 'left',
+  },
+  label: {
+    display: 'block',
+    marginBottom: '5px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    color: '#555',
+  },
+  select: {
+    width: '100%',
+    padding: '10px',
+    borderRadius: '5px',
+    border: '1px solid #ddd',
+    fontSize: '14px',
+    color: '#333',
+    boxSizing: 'border-box',
+  },
+  button: {
+    width: '100%',
+    padding: '12px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    transition: 'background-color 0.3s ease',
+  },
+  buttonHover: {
+    backgroundColor: '#0056b3',
+  },
+  successMessage: {
+    color: 'green',
+    marginTop: '10px',
+  },
+  errorMessage: {
+    color: 'red',
+    marginTop: '10px',
+  },
 };
 
 export default ReserveSeat;

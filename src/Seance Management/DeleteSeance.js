@@ -6,7 +6,7 @@ const DeleteSeance = () => {
     const { seanceId } = useParams(); // Retrieve the seance ID from the URL parameters
     const [seance, setSeance] = useState(null);
     const [errorMessage, setErrorMessage] = useState("");
-    const navigate  = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSeance = async () => {
@@ -36,13 +36,13 @@ const DeleteSeance = () => {
             <h2 style={styles.header}>Delete Seance</h2>
             {seance ? (
                 <div style={styles.details}>
-                    <p>
+                    <p style={styles.text}>
                         <strong>Seance ID:</strong> {seance.id_seance}
                     </p>
-                    <p>
+                    <p style={styles.text}>
                         <strong>Film:</strong> {seance.salleProg?.film?.name || "Unknown Film"}
                     </p>
-                    <p>
+                    <p style={styles.text}>
                         <strong>Schedule:</strong> {seance.horaire}
                     </p>
 
@@ -52,36 +52,54 @@ const DeleteSeance = () => {
                 <p>Loading seance details...</p>
             )}
 
-            {errorMessage && <p className="error" style={styles.error}>{errorMessage}</p>}
+            {errorMessage && <p style={styles.error}>{errorMessage}</p>}
         </div>
     );
 };
 
 const styles = {
     container: {
-        padding: '20px',
+        padding: '30px',
+        maxWidth: '600px',
+        margin: '0 auto',
         backgroundColor: '#f9f9f9',
         borderRadius: '8px',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
     },
     header: {
-        marginBottom: '20px',
+        marginBottom: '30px',
         textAlign: 'center',
+        fontSize: '24px',
+        fontWeight: '600',
     },
     details: {
-        textAlign: 'left',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '15px',
+    },
+    text: {
+        fontSize: '16px',
+        lineHeight: '1.5',
+        color: '#333',
     },
     button: {
-        padding: '10px 20px',
-        backgroundColor: '#007bff',
+        padding: '12px 24px',
+        backgroundColor: '#ff4747',
         color: '#fff',
         border: 'none',
         borderRadius: '4px',
+        fontSize: '16px',
         cursor: 'pointer',
+        transition: 'background-color 0.3s ease',
+    },
+    buttonHover: {
+        backgroundColor: '#e63946',
     },
     error: {
         color: 'red',
-        marginTop: '10px',
+        fontSize: '14px',
+        marginTop: '15px',
+        textAlign: 'center',
     },
 };
 

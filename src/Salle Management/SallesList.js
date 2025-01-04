@@ -21,29 +21,29 @@ const SallesList = () => {
 
     // If the salles data is not available yet, display loading message
     if (salles.length === 0) {
-        return <p>Loading...</p>;
+        return <p style={styles.loading}>Loading...</p>;
     }
 
     return (
         <div style={styles.container}>
             <h2 style={styles.header}>List of Salles</h2>
-            {errorMessage && <p className="error" style={styles.error}>{errorMessage}</p>}
+            {errorMessage && <p style={styles.error}>{errorMessage}</p>}
             <table style={styles.table}>
                 <thead>
                     <tr>
-                        <th>ID Salle</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Capacity</th>
+                        <th style={styles.th}>ID Salle</th>
+                        <th style={styles.th}>Name</th>
+                        <th style={styles.th}>Address</th>
+                        <th style={styles.th}>Capacity</th>
                     </tr>
                 </thead>
                 <tbody>
                     {salles.map((salle) => (
                         <tr key={salle.id_salle}>
-                            <td>{salle.id_salle}</td>
-                            <td>{salle.name}</td>
-                            <td>{salle.address}</td>
-                            <td>{salle.capacite}</td>
+                            <td style={styles.td}>{salle.id_salle}</td>
+                            <td style={styles.td}>{salle.name}</td>
+                            <td style={styles.td}>{salle.address}</td>
+                            <td style={styles.td}>{salle.capacite}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -55,31 +55,45 @@ const SallesList = () => {
 const styles = {
     container: {
         padding: '20px',
-        backgroundColor: '#f9f9f9',
-        borderRadius: '8px',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#f4f4f9', // Light background color
+        borderRadius: '15px', // Rounded corners for a smooth look
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Subtle shadow
+        maxWidth: '800px', // Maximum width for the container
+        margin: '40px auto', // Centering the table on the page
     },
     header: {
-        marginBottom: '20px',
         textAlign: 'center',
+        marginBottom: '20px',
+        color: '#333',
+        fontSize: '24px',
     },
     table: {
         width: '100%',
         borderCollapse: 'collapse',
     },
     th: {
-        backgroundColor: '#007bff',
+        backgroundColor: '#FFB6C1', // Blue header color
         color: 'white',
-        padding: '10px',
-        border: '1px solid #ddd',
+        padding: '12px 20px', // Padding for header
+        border: '1px solid #ddd', // Border for cells
+        fontSize: '16px', // Larger font size
     },
     td: {
-        padding: '10px',
-        border: '1px solid #ddd',
+        padding: '12px 20px', // Padding for cells
+        border: '1px solid #ddd', // Border for cells
+        textAlign: 'center', // Center the text
+        fontSize: '14px', // Slightly smaller font size
     },
     error: {
         color: 'red',
-        marginBottom: '10px',
+        textAlign: 'center',
+        fontSize: '14px',
+        marginTop: '15px',
+    },
+    loading: {
+        textAlign: 'center',
+        fontSize: '18px',
+        color: '#555',
     },
 };
 

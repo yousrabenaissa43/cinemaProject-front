@@ -29,11 +29,11 @@ const ProgramSalle = () => {
     // Handle the programming of salle
     const handleProgram = async () => {
         try {
-            await axios.post(`http://localhost:8080/testV2/api/cinema/salle/program?salleId=${salleId}&filmId=${filmId}`);
+            await axios.post(`http://localhost:8080/cinemaProject/api/cinema/salle/program?salleId=${salleId}&filmId=${filmId}`);
             setSuccessMessage('Salle programmed successfully!');
             setError('');
         } catch (err) {
-            setError('Failed to program salle.'+ salleId);
+            setError('Failed to program salle.' + salleId);
             setSuccessMessage('');
         }
     };
@@ -74,8 +74,8 @@ const ProgramSalle = () => {
             <button onClick={handleProgram} style={styles.button}>Program</button>
 
             {/* Success or error message */}
-            {successMessage && <p className="success" style={styles.success}>{successMessage}</p>}
-            {error && <p className="error" style={styles.error}>{error}</p>}
+            {successMessage && <p style={styles.success}>{successMessage}</p>}
+            {error && <p style={styles.error}>{error}</p>}
         </div>
     );
 };
@@ -86,36 +86,48 @@ const styles = {
         flexDirection: 'column',
         alignItems: 'center',
         padding: '20px',
-        backgroundColor: '#f9f9f9',
-        borderRadius: '8px',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#f4f4f9', // Light background color
+        borderRadius: '15px', // Rounded corners for a smooth look
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Subtle shadow
+        maxWidth: '500px', // Maximum width for the container
+        margin: '40px auto', // Centering the form on the page
     },
     header: {
+        textAlign: 'center',
         marginBottom: '20px',
+        color: '#333',
+        fontSize: '24px',
     },
     input: {
-        marginBottom: '10px',
-        padding: '10px',
         width: '100%',
-        maxWidth: '400px',
-        borderRadius: '4px',
-        border: '1px solid #ccc',
+        padding: '10px',
+        borderRadius: '8px',
+        border: '1px solid #ddd',
+        fontSize: '14px',
+        marginBottom: '15px', // Space between inputs
     },
     button: {
-        padding: '10px 20px',
-        backgroundColor: '#28a745',
-        color: 'white',
+        padding: '12px 20px',
+        backgroundColor: '#87ceeb', // Sky blue color for the button
+        color: '#fff',
         border: 'none',
-        borderRadius: '4px',
+        borderRadius: '8px', // Smooth edges for the button
         cursor: 'pointer',
+        fontSize: '16px',
+        width: '100%',
+        transition: 'background-color 0.3s ease', // Transition effect on hover
     },
     success: {
-        color: 'green',
-        marginTop: '10px',
+        color: '#5cb85c', // Green for success
+        textAlign: 'center',
+        fontSize: '14px',
+        marginTop: '15px',
     },
     error: {
-        color: 'red',
-        marginTop: '10px',
+        color: '#d9534f', // Red for error
+        textAlign: 'center',
+        fontSize: '14px',
+        marginTop: '15px',
     },
 };
 
