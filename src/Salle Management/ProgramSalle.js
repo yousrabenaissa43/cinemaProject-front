@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const ProgramSalle = () => {
+    
     const [salleId, setSalleId] = useState('');
     const [filmId, setFilmId] = useState('');
     const [films, setFilms] = useState([]);
@@ -33,15 +34,15 @@ const ProgramSalle = () => {
             setSuccessMessage('Salle programmed successfully!');
             setError('');
         } catch (err) {
-            setError('Failed to program salle.' + salleId);
+            setError('Failed to program salle.'+ salleId);
             setSuccessMessage('');
         }
     };
-
+    
     return (
         <div style={styles.container}>
             <h2 style={styles.header}>Program Salle</h2>
-
+            
             {/* Dropdown for salle selection */}
             <select
                 value={salleId}
@@ -50,7 +51,7 @@ const ProgramSalle = () => {
             >
                 <option value="">Select Salle</option>
                 {salles.map((salle) => (
-                    <option key={salle.id} value={salle.id}>
+                    <option key={salle.id_salle} value={salle.id_salle}>
                         {salle.name}
                     </option>
                 ))}
@@ -74,8 +75,8 @@ const ProgramSalle = () => {
             <button onClick={handleProgram} style={styles.button}>Program</button>
 
             {/* Success or error message */}
-            {successMessage && <p style={styles.success}>{successMessage}</p>}
-            {error && <p style={styles.error}>{error}</p>}
+            {successMessage && <p className="success" style={styles.success}>{successMessage}</p>}
+            {error && <p className="error" style={styles.error}>{error}</p>}
         </div>
     );
 };

@@ -3,13 +3,16 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
 const ReserveSeat = () => {
+  const location = useLocation();
+  const getQueryParam = (param) => {
+    const urlSearchParams = new URLSearchParams(location.search);
+    return urlSearchParams.get(param);
+  };
+  const userId = getQueryParam("userId");
   const [seances, setSeances] = useState([]);
   const [selectedSeance, setSelectedSeance] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
-  const location = useLocation();
-  const userId = new URLSearchParams(location.search).get('userId');
 
   useEffect(() => {
     const fetchSeances = async () => {
@@ -30,15 +33,7 @@ const ReserveSeat = () => {
     e.preventDefault();
     try {
       await axios.post(
-        `http://localhost:8080/cinemaProject/api/cinema/seances/reserve`,
-        null,
-        {
-          params: {
-            seance_id: selectedSeance,
-            user_id: userId,
-          },
-        }
-      );
+        `http://localhost:8080/cinemaProject/api/cinema/seances/reserve?seance_id=${selectedSeance}&user_id=${userId}`);
       setSuccessMessage('Seat reserved successfully!');
       setErrorMessage('');
     } catch {
@@ -49,32 +44,32 @@ const ReserveSeat = () => {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.header}>Reserve a Seat</h2>
+      <h2>Reserve a Seat</h2>
 
-      {/* Dropdown list for selecting a seance */}
-      <div style={styles.formGroup}>
-        <label htmlFor="seanceSelect" style={styles.label}>Select a Seance:</label>
-        <select
-          id="seanceSelect"
-          value={selectedSeance}
-          onChange={(e) => setSelectedSeance(e.target.value)}
-          style={styles.select}
-        >
-          <option value="" disabled>
-            Select a Seance
-          </option>
-          {seances.map((seance) => (
-            <option key={seance.id_seance} value={seance.id_seance}>
-              {`Seance ID: ${seance.id_seance}, Film: ${seance.salleProg?.film?.name || 'Unknown'}, Horaire: ${seance.horaire}`}
-            </option>
-          ))}
-        </select>
-      </div>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        {/* Dropdown list for selecting a seance */}
+        <div className="form-group" style={styles.formGroup}>
+          <label htmlFor="seanceSelect" style={styles.label}>Select a Seance:</label>
+          <select
+            id="seanceSelect"
+            value={selectedSeance}
+            onChange={(e) => setSelectedSeance(e.target.value)}
+            style={styles.select} 
+          >
+            <option value="" disabled>Select a Seance</option>
+            {seances.map((seance) => (
+              <option key={seance.id_seance} value={seance.id_seance}>
+                {`Seance ID: ${seance.id_seance}, Horaire: ${seance.horaire}`}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Submit button */}
-      <button onClick={handleSubmit} style={styles.button}>
-        Reserve Seat
-      </button>
+        {/* Submit button */}
+        <button type="submit" style={styles.submitButton}>
+          Reserve Seat
+        </button>
+      </form>
 
       {successMessage && <p style={styles.successMessage}>{successMessage}</p>}
       {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}

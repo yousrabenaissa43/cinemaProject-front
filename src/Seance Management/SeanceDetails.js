@@ -3,25 +3,25 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const SeanceDetails = () => {
-    const { seanceId } = useParams(); // Retrieve the seanceId from URL
+    const { seanceId } = useParams(); 
     const [seance, setSeance] = useState(null);
     const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         const fetchSeanceDetails = async () => {
             try {
+                const seanceId = 1 ;
                 const response = await axios.get(`http://localhost:8080/cinemaProject/api/cinema/seances/${seanceId}`);
-                setSeance(response.data); // Storing seance data in state
-                setErrorMessage(""); // Clear any previous error messages
+                setSeance(response.data); 
+                setErrorMessage(""); 
             } catch (error) {
                 setErrorMessage("Failed to load seance details.");
             }
         };
 
         fetchSeanceDetails();
-    }, [seanceId]);  // Re-run the fetch when the seanceId changes
-
-    // Check if the seance exists, if not show loading/error
+    }, [seanceId]);  
+   
     if (!seance) {
         return <p>Loading...</p>;
     }
@@ -45,20 +45,29 @@ const styles = {
     container: {
         padding: '20px',
         backgroundColor: '#f9f9f9',
-        borderRadius: '8px',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        borderRadius: '10px',  // Increased border-radius for a smoother look
+        boxShadow: '0 0 12px rgba(0, 0, 0, 0.2)',  // Slightly increased box-shadow intensity
+        transition: 'box-shadow 0.3s ease-in-out',  // Added transition for smooth effect
     },
     header: {
         marginBottom: '20px',
         textAlign: 'center',
+        color: '#333',  // Changed header text color for better contrast
     },
     details: {
         textAlign: 'left',
+        padding: '10px',
+        backgroundColor: '#f1f1f1',
+        borderRadius: '8px',  // Adding rounded corners for better UI
     },
     error: {
         color: 'red',
         marginBottom: '10px',
+        backgroundColor: '#ffe6e6',  // Changed background color for error messages for better readability
+        padding: '10px',
+        borderRadius: '5px',  // Rounded edges for error message box
     },
 };
+
 
 export default SeanceDetails;

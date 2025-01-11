@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AddSalle = () => {
+    
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [capacite, setCapacite] = useState('');
@@ -10,9 +11,7 @@ const AddSalle = () => {
 
     const handleAdd = async () => {
         try {
-            const response = await axios.post(
-                `http://localhost:8080/cinemaProject/api/cinema/salle/add?name=${name}&address=${address}&capacite=${capacite}`
-            );
+            await axios.post(`http://localhost:8080/cinemaProject/api/cinema/salle/add?name=${name}&address=${address}&capacite=${capacite}`);
             setSuccessMessage('Salle added successfully!');
             setError('');
         } catch (err) {
@@ -20,40 +19,34 @@ const AddSalle = () => {
             setSuccessMessage('');
         }
     };
-
+    
     return (
         <div style={styles.container}>
             <h2 style={styles.header}>Add Salle</h2>
-            <div style={styles.formGroup}>
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Salle Name"
-                    style={styles.input}
-                />
-            </div>
-            <div style={styles.formGroup}>
-                <input
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Salle Address"
-                    style={styles.input}
-                />
-            </div>
-            <div style={styles.formGroup}>
-                <input
-                    type="number"
-                    value={capacite}
-                    onChange={(e) => setCapacite(e.target.value)}
-                    placeholder="Salle Capacity"
-                    style={styles.input}
-                />
-            </div>
+            <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Salle Name"
+                style={styles.input}
+            />
+            <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Salle Address"
+                style={styles.input}
+            />
+            <input
+                type="number"
+                value={capacite}
+                onChange={(e) => setCapacite(e.target.value)}
+                placeholder="Salle Capacity"
+                style={styles.input}
+            />
             <button onClick={handleAdd} style={styles.button}>Add</button>
-            {successMessage && <p style={styles.success}>{successMessage}</p>}
-            {error && <p style={styles.error}>{error}</p>}
+            {successMessage && <p className="success" style={styles.success}>{successMessage}</p>}
+            {error && <p className="error" style={styles.error}>{error}</p>}
         </div>
     );
 };

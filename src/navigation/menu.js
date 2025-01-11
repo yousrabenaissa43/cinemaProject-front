@@ -32,7 +32,6 @@ function Menu() {
       <nav className="menu-nav">
         <ul className="menu-list">
           <li><Link to="/accueil" className="menu-link">Accueil</Link></li>
-          {/* Films */}
           <li className="dropdown">
             <Link to="/films" className="menu-link">Films</Link>
             <ul className="dropdown-menu">
@@ -44,7 +43,6 @@ function Menu() {
               <li><Link to="/films/search" className="dropdown-link">Film Search</Link></li>
             </ul>
           </li>
-          {/* Users */}
           <li className="dropdown">
             <Link to="/users" className="menu-link">Users</Link>
             <ul className="dropdown-menu">
@@ -52,7 +50,6 @@ function Menu() {
               <li><Link to="/users/login" className="dropdown-link">User Login</Link></li>
             </ul>
           </li>
-          {/* Salle Management */}
           <li className="dropdown">
             <Link to="/salle" className="menu-link">Salle Management</Link>
             <ul className="dropdown-menu">
@@ -62,7 +59,6 @@ function Menu() {
               <li><Link to="/salle/list" className="dropdown-link">Salles List</Link></li>
             </ul>
           </li>
-          {/* Seance Management */}
           <li className="dropdown">
             <Link to="/seance" className="menu-link">Seance Management</Link>
             <ul className="dropdown-menu">
@@ -70,8 +66,8 @@ function Menu() {
               <li><Link to="/seance/delete" className="dropdown-link">Delete Seance</Link></li>
               <li><Link to="/seance/get-all" className="dropdown-link">Get All Seances</Link></li>
               <li><Link to="/seance/reserve-seat" className="dropdown-link">Reserve Seat</Link></li>
-              <li><Link to="/seance/details" className="dropdown-link">Seance Details</Link></li>
-              <li><Link to="/seance/update" className="dropdown-link">Update Seance</Link></li>
+              {/* <li><Link to="/seance/details" className="dropdown-link">Seance Details</Link></li> */}
+             {/* <li><Link to="/seance/update" className="dropdown-link">Update Seance</Link></li> */}
             </ul>
           </li>
         </ul>
@@ -95,8 +91,9 @@ function Menu() {
           <Route path="/seance/delete" element={<DeleteSeance />} />
           <Route path="/seance/get-all" element={<GetAllSeances />} />
           <Route path="/seance/reserve-seat" element={<ReserveSeat />} />
-          <Route path="/seance/details" element={<SeanceDetails />} />
-          <Route path="/seance/update" element={<UpdateSeance />} />
+          <Route path="/seance/details/:id" element={<SeanceDetails />} />
+          <Route path="/update-seance/:id" element={<UpdateSeance/>} />
+
         </Routes>
       </div>
     </Router>

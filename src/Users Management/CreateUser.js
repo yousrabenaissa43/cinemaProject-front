@@ -8,35 +8,20 @@ const CreateUser = () => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handleCreateUser = async () => {
-    if (!username || !password) {
-      setMessage("Username and Password are required.");
-      setIsSuccess(false);
-      return;
-    }
-
     try {
-      const response = await axios.post(
-        `http://localhost:8080/cinemaProject/api/utilisateur/create`,
-        null,
-        {
-          params: { username, password },
+        const response = await axios.post(`http://localhost:8080/cinemaProject/api/utilisateur/create?username=${username}&password=${password}`);
+        if (response.status === 201) {
+            setMessage(response.data);
+            setIsSuccess(true);
         }
-      );
-      if (response.status === 201) {
-        setMessage("User created successfully!");
-        setIsSuccess(true);
-        setUsername("");
-        setPassword("");
-      }
     } catch (error) {
-      setIsSuccess(false);
-      if (error.response && error.response.data) {
-        setMessage(error.response.data);
-      } else {
-        setMessage("An unexpected error occurred. Please try again.");
-      }
+        if (error.response) {
+            setMessage(error.response.data);
+        } else {
+            setMessage("An unexpected error occurred");
+        }
     }
-  };
+};
 
   return (
     <div className="create-user-container">

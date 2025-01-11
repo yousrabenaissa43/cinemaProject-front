@@ -1,84 +1,97 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useLocation,useNavigate} from "react-router-dom";
 
 const UpdateSeance = () => {
-    const { seanceId } = useParams();
+    const location = useLocation();
+const navigate = useNavigate();
+   
+    const getQueryParam = (param) => {
+        const urlSearchParams = new URLSearchParams(location.search);
+        return urlSearchParams.get(param);
+    };
+
+    const seanceId = getQueryParam("seanceId");
     const [seance, setSeance] = useState(null);
     const [schedule, setSchedule] = useState("");
     const [price, setPrice] = useState(0);
     const [seats, setSeats] = useState(0);
-    const [hallProgId, setHallProgId] = useState(""); // Initially an empty string
+    const [hallProgId, setHallProgId] = useState("");
     const [salleProgList, setSalleProgList] = useState([]);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
-    // Fetch available hall programs (SalleProg)
     useEffect(() => {
         const fetchSalleProg = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/cinemaProject/api/cinema/salleprog');
+                const response = await axios.get(
+                    "http://localhost:8080/cinemaProject/api/cinema/salleprog"
+                );
                 setSalleProgList(response.data);
             } catch (error) {
-                setErrorMessage(error.response?.data || 'Error fetching salleprog data');
+                setErrorMessage("Error fetching salleprog data.");
             }
         };
         fetchSalleProg();
     }, []);
 
-    // Fetch current seance details
     useEffect(() => {
+      
+        const seanceId = 1 ;
         const fetchSeance = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/cinemaProject/api/cinema/seances/${seanceId}`);
+                const response = await axios.get(
+                    `http://localhost:8080/cinemaProject/api/cinema/seances/${seanceId}`
+                );
                 const { horaire, tarif, places, salleProg } = response.data;
-
-                // Set the current seance details
                 setSeance(response.data);
                 setSchedule(horaire);
                 setPrice(tarif);
                 setSeats(places);
-                setHallProgId(salleProg?.id_salleprog || ""); // Ensure it's correctly set
+                setHallProgId(salleProg?.id_salleprog || "");
             } catch (error) {
                 setErrorMessage("Failed to fetch seance details.");
             }
         };
-
         fetchSeance();
     }, [seanceId]);
 
-    // Handle the form update submit
     const handleUpdate = async (e) => {
         e.preventDefault();
-
-        // Ensure that schedule is in the correct ISO format with seconds
-        let formattedSchedule = schedule;
-        if (formattedSchedule.length === 16) {
-            formattedSchedule += ":00"; // Add seconds if missing
-        }
-
-        // Validate that hallProgId is not empty
         if (!hallProgId) {
             setErrorMessage("Please select a HallProg.");
             return;
         }
 
-        // Send the update via query parameters
+        let formattedSchedule = schedule;
+        if (formattedSchedule.length === 16) {
+            formattedSchedule += ":00";
+        }
+
         try {
-            const response = await axios.put(
-                `http://localhost:8080/cinemaProject/api/cinema/seances/${seanceId}?horaire=${encodeURIComponent(formattedSchedule)}&tarif=${price}&places=${seats}&salleProgId=${hallProgId}`
+            await axios.put(
+                `http://localhost:8080/cinemaProject/api/cinema/seances/${seanceId}?horaire=${encodeURIComponent(
+                    formattedSchedule
+                )}&tarif=${price}&places=${seats}&salleProgId=${hallProgId}`
             );
             setSuccessMessage("Seance updated successfully!");
-            setErrorMessage("");  // Clear any previous errors
+            setErrorMessage("");
         } catch (error) {
             setErrorMessage("Failed to update the seance.");
-            setSuccessMessage(""); // Clear any success messages on error
+            setSuccessMessage("");
         }
     };
-
+    const handleReturjn = () => {
+        navigate(`/seance/get-all`);
+    }
+    
     return (
         <div style={styles.container}>
             <h2 style={styles.header}>Update Seance</h2>
+            <button
+                onClick={() => handleReturjn()}
+                style={styles.returnButton}
+            >Return</button>
             {seance ? (
                 <form onSubmit={handleUpdate} style={styles.form}>
                     <label style={styles.label}>Schedule:</label>
@@ -105,7 +118,9 @@ const UpdateSeance = () => {
                         required
                         style={styles.input}
                     />
-                    <label htmlFor="hallProgId" style={styles.label}>Hall program details:</label>
+                    <label htmlFor="hallProgId" style={styles.label}>
+                        Hall program details:
+                    </label>
                     <select
                         id="hallProgId"
                         value={hallProgId}
@@ -116,20 +131,25 @@ const UpdateSeance = () => {
                             -- Select a HallProg --
                         </option>
                         {salleProgList.map((salleProg) => (
-                            <option key={salleProg.id_salleprog} value={salleProg.id_salleprog}>
-                                 {`Film: ${salleProg.film.name} - ${salleProg.film.description} | Salle: ${salleProg.salle.name} - address: ${salleProg.salle.address} seats: ${salleProg.salle.capacite}`}
+                            <option
+                                key={salleProg.id_salleprog}
+                                value={salleProg.id_salleprog}
+                            >
+                                {`Film: ${salleProg.film.name} - ${salleProg.film.description} | Salle: ${salleProg.salle.name} - address: ${salleProg.salle.address} seats: ${salleProg.salle.capacite}`}
                             </option>
                         ))}
                     </select>
 
-                    <button type="submit" style={styles.button}>Update Seance</button>
+                    <button type="submit" style={styles.button}>
+                        Update Seance
+                    </button>
                 </form>
             ) : (
                 <p>Loading seance details...</p>
             )}
 
-            {successMessage && <p className="success" style={styles.success}>{successMessage}</p>}
-            {errorMessage && <p className="error" style={styles.error}>{errorMessage}</p>}
+            {successMessage && <p style={styles.success}>{successMessage}</p>}
+            {errorMessage && <p style={styles.error}>{errorMessage}</p>}
         </div>
     );
 };

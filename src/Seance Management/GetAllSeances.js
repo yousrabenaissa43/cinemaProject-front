@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";  // Assuming you are using react-router for navigation
+import { useNavigate } from "react-router-dom"; 
 
 const GetAllSeance = () => {
     const [seances, setSeances] = useState([]);
@@ -32,9 +32,14 @@ const GetAllSeance = () => {
         }
     };
 
-    // Navigate to Update Seance page
+    // Handle Update
     const handleUpdate = (id) => {
-        navigate(`/update-seance/${id}`);  // Assuming a route for updating seance
+        navigate(`/update-seance/${id}`);  
+    };
+
+    // Handle Details
+    const handleDetails = (id) => {
+        navigate(`/seance/details/${id}`);
     };
 
     return (
@@ -64,6 +69,7 @@ const GetAllSeance = () => {
                             <td style={styles.td}>
                                 <button onClick={() => handleUpdate(seance.id_seance)} style={styles.button}>Update</button>
                                 <button onClick={() => handleDelete(seance.id_seance)} style={styles.button}>Delete</button>
+                                <button onClick={() => handleDetails(seance.id_seance)} style={styles.button}>Details</button>
                             </td>
                         </tr>
                     ))}

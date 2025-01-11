@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const DeleteSeance = () => {
     const { seanceId } = useParams(); // Retrieve the seance ID from the URL parameters
     const [seance, setSeance] = useState(null);
     const [errorMessage, setErrorMessage] = useState("");
-    const navigate = useNavigate();
+   
 
     useEffect(() => {
         const fetchSeance = async () => {
@@ -25,7 +25,6 @@ const DeleteSeance = () => {
         try {
             await axios.delete(`http://localhost:8080/cinemaProject/api/cinema/seances/${seanceId}`);
             setErrorMessage("");
-            navigate("/seances");  // Redirect after deleting
         } catch (error) {
             setErrorMessage("Failed to delete seance.");
         }
@@ -36,13 +35,13 @@ const DeleteSeance = () => {
             <h2 style={styles.header}>Delete Seance</h2>
             {seance ? (
                 <div style={styles.details}>
-                    <p style={styles.text}>
+                    <p>
                         <strong>Seance ID:</strong> {seance.id_seance}
                     </p>
-                    <p style={styles.text}>
+                    <p>
                         <strong>Film:</strong> {seance.salleProg?.film?.name || "Unknown Film"}
                     </p>
-                    <p style={styles.text}>
+                    <p>
                         <strong>Schedule:</strong> {seance.horaire}
                     </p>
 
@@ -52,7 +51,7 @@ const DeleteSeance = () => {
                 <p>Loading seance details...</p>
             )}
 
-            {errorMessage && <p style={styles.error}>{errorMessage}</p>}
+            {errorMessage && <p className="error" style={styles.error}>{errorMessage}</p>}
         </div>
     );
 };
